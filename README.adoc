@@ -1,0 +1,8 @@
+= Gradle iOS Over-the-Air Installer
+
+Currently this is just a sample `build.gradle` file, but if there is interest it may be be converted to a Gradle plugin.
+
+== Instructions.
+
+TBD.
+
