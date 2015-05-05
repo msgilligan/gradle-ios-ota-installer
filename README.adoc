@@ -2,7 +2,42 @@
 
 Currently this is just a sample `build.gradle` file, but if there is interest it may be be converted to a Gradle plugin.
 
-== Instructions.
+== Getting started.
 
-TBD.
+=== Installing prerequisites.
+
+Make sure you have JDK 6 or later installed on your system. There are no other prerequisites.
+
+=== Quick Start
+
+. Clone this project
+. `cd` into local working directory
+. `cp sample-aws.properties <privatedir>/aws.properties`
+. Put your AWS credentials in your private `aws.properties` file.
+. Edit `gradle.properties`
+. `./gradlew build`
+. Inspect resulting static mobile site in `build` directory
+
+=== Configuring `gradle.properties`
+
+More info TBD.
+
+=== Deploy
+
+To deploy to the configured Amazon S3 bucket
+
+    ./gradlew deploy
+
+=== Full build
+
+Full build without deploying:
+
+    ./gradlew clean build
+
+=== Full build & deploy
+
+Full build and deploy:
+
+    ./gradlew clean deploy
+
 
