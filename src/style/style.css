@@ -1,0 +1,601 @@
+/*
+   Copyright (c) 2007-12, iUI Project Members
+   See iUI LICENSE.txt for licensing terms
+   Version @VERSION@
+ */
+body {
+    margin: 0;
+    font-family: "Helvetica Neue";
+    background: #FFFFFF;
+    color: #000000;
+    overflow-x: hidden;
+    -webkit-user-select: none;
+    -webkit-text-size-adjust: none;
+}
+
+.navroot > *:not(.toolbar){
+    display: none;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    left: 0;
+    top: 45px;
+    width: 100%;
+    height: auto;
+    min-height: 415px;
+//    -webkit-transition-duration: 300ms;
+//    -webkit-transition-property: -webkit-transform;
+//    -webkit-transform: translateX(0%);
+    border-top: 1px solid #B7B7B7;
+}
+
+.fade-enter {
+    -webkit-transition: 300ms linear all; /* Safari/Chrome */
+    opacity: 0;
+}
+
+.fade-enter.fade-enter-active {
+    opacity: 1;
+}
+
+.fade-leave {
+    -webkit-transition: 300ms linear all; /* Safari/Chrome */
+    opacity: 1;
+}
+
+.fade-leave.fade-leave-active {
+    opacity: 0;
+}
+
+.slideleft.ng-enter {
+    -webkit-transition: 300ms linear all; /* Safari/Chrome */
+    -webkit-transform: translateX(100%);
+}
+
+.slideleft.ng-enter.ng-enter-active {
+    -webkit-transform: translateX(0%);
+}
+
+.slideleft.ng-leave {
+    -webkit-transition: 300ms linear all; /* Safari/Chrome */
+    -webkit-transform: translateX(0%);
+}
+
+.slideleft.ng-leave.ng-leave-active {
+    -webkit-transform: translateX(-100%);
+}
+
+.slideright-enter {
+    -webkit-transition: 300ms linear all; /* Safari/Chrome */
+    -webkit-transform: translateX(-100%);
+}
+
+.slideright-enter.slideright-enter-active {
+    -webkit-transform: translateX(0%);
+}
+
+.slideright-leave {
+    -webkit-transition: 300ms linear all; /* Safari/Chrome */
+    -webkit-transform: translateX(0%);
+}
+
+.slideright-leave.slideright-leave-active {
+    -webkit-transform: translateX(100%);
+}
+
+
+body.landscape .navroot > *:not(.toolbar){
+    height: auto;
+    min-height: 400px;
+    z-index:15;
+}
+
+.navroot > *[shown="true"] {
+    display: block;
+}
+
+li > a[selected], li > a:active {
+    background-color: #194fdb !important;
+    background-repeat: no-repeat, repeat-x !important;	/* TG: !important */
+    background-position: right center, left top !important;	/* TG: !important */
+    color: #FFFFFF !important;
+}
+
+li > a[selected="progress"] {
+}
+
+/************************************************************************************************/
+
+body > .toolbar {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    padding: 0 10px 10px 10px;
+    height: 45px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 10
+}
+
+.toolbar > h1 {
+    position: absolute;
+    overflow: hidden;
+    left: 50%;
+    margin: 1px 0 0 -75px;
+    padding-top: 10px;
+    height: 45px;
+    font-size: 20px;
+    width: 150px;
+    font-weight: 400;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #000000;
+}
+
+body.landscape > .toolbar > h1 {
+    margin-left: -125px;
+    width: 250px;
+}
+
+.button {
+    position: absolute;
+    overflow: hidden;
+    top: 8px;
+    right: 6px;
+    margin: 0;
+    border-width: 0 5px;
+    padding: 0 3px;
+    width: auto;
+    height: 30px;
+    line-height: 30px;
+    font-family: inherit;
+    font-size: 20px;
+    font-weight:200;
+    color: #157dfb;
+    text-decoration: none;
+    white-space: nowrap;
+    background: none;
+}
+
+.blueButton {
+    border-width: 0 5px;
+}
+
+.leftButton {
+    left: 6px;
+    right: auto;
+}
+
+#backButton {
+    display: none;
+    left: 6px;
+    right: auto;
+    padding: 0;
+    max-width: 60px;
+}
+
+#backButton.show {
+    display: inline;
+}
+
+.whiteButton,
+.redButton,
+.grayButton {
+    display: block;
+    border-width: 0px;
+    text-align: center;
+    font-size: 20px;
+    text-decoration: inherit;
+    color: inherit;
+    width: 50%;
+    float: left;
+    color: #157dfb;
+    border: 1px solid #B7B7B7;
+    margin-right: -1px;
+    border-left: 0;
+    padding: 10px 0;
+}
+
+/* TG */ .grayButton[selected], .grayButton:active,
+.whiteButton {
+/* TG */ background:transparent !important;
+}
+
+.redButton {
+/* TG */ background:transparent !important;
+}
+
+/* TG */ .whiteButton[selected], .whiteButton:active,
+.grayButton {
+/* TG */ background:transparent !important;
+}
+
+/************************************************************************************************/
+
+body > ul > li, .panel > ul li,
+.row, .navroot > ul > li, .navroot > div > ul > li{
+    position: relative;
+    margin: 0;
+    font-size: 17px;
+    list-style: none;
+    margin: 0 0 0 10px;
+    padding: 11px 30px 8px 0px;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+dl{
+    overflow: auto;
+    margin:0;
+}
+
+dt, dd{
+    position: relative;
+    margin: 0;
+    float:left;
+    width:44.2%;
+    font-size: 17px;
+    list-style: none;
+    padding: 11px 30px 8px 0px;
+    border-bottom: 1px solid #E0E0E0;
+    margin: 0 -30px 0 10px;
+}
+
+.navroot > div > ul{
+  margin:0;
+  padding:0;
+}
+
+dd{
+    padding-left:0;
+    right: 12px;
+    color: #808080;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: right;
+}
+
+body > ul > li.group,
+.navroot > ul > li.group{
+    position: relative;
+    top: -1px;
+    border-top: 1px solid 
+    #c6c6c6;
+    font-size: 17px;
+    font-weight: 500;
+    background: #F8F8F8;
+    padding: 1px 9px;
+    margin-left: 0;
+    border-bottom: 0;
+}
+
+body > ul > li.group:first-child,
+.navroot > ul > li.group:first-child{
+    top: 0;
+    border-top: none;
+}
+
+body > ul > li > a,
+.navroot > ul > li > a,
+.navroot > div > ul > li > a{
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    height: 100%;
+    width: 100%;
+    padding: 11px 30px 8px 10px;
+    margin: -11px -30px -8px -10px;
+}
+
+a[target="_replace"] {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    font-size: 18px;
+    color: cornflowerblue;
+    background-color: #FFFFFF;
+    background-image: none;
+}
+
+/************************************************************************************************/
+    
+body > .dialog,
+.navroot > .dialog{
+    top: 0;
+    width: 100%;
+    min-height: 417px;
+    z-index: 2;
+    background: #f8f8f8;
+    padding: 0;
+    text-align: right;
+}
+
+.dialog > fieldset {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    border: none;
+    border-top: 1px solid #6d84a2;
+    padding: 10px 6px;
+}
+
+.dialog > fieldset > h1 {
+    margin: 0 10px 0 10px;
+    padding: 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 400;
+    color: #000000;
+}
+
+.dialog > fieldset > label {
+    position: absolute;
+    margin: 16px 0 0 6px;
+    font-size: 14px;
+    color: #f8f8f8;
+    width:	5em;
+    text-align:	left;
+}
+
+input:not([type|=submit]):not([type|=radio]):not([type|=checkbox]) {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 100%;
+    margin: 8px 0 0 0;
+    padding: 7px 6px 6px 45px;
+    font-size: 14px;
+    font-weight: normal;
+    background: #989798;
+    color: #f8f8f8;
+    border-radius: 4px;
+    border: 0;
+}
+
+/************************************************************************************************/
+
+.navroot > .panel,
+body > .panel{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.panel > ul, 
+.panel > fieldset {
+    position: relative;
+    margin: 0 0 20px 0;
+    padding: 0;
+    background: #FFFFFF;
+    border: none;
+    font-size: 16px;
+}
+
+.panel > ul li,
+.row  {
+}
+
+.panel > ul li:last-child,
+fieldset > .row:last-child {
+    border-bottom: none !important;
+}
+
+.row > input:not([type|=radio]):not([type|=checkbox]) {
+    margin: 0;
+    border: none;
+    height: 42px;
+    background: none;
+    background: none;
+    top: 0;
+    position: absolute;
+    text-align: right;
+    right: 0;
+    color: #808080;
+}
+
+.row > input[type|=radio], .row > input[type|=checkbox], 
+.row > select {
+  float: right;
+  margin: 7px 7px 0 0;
+  height: 25px;
+  width: 25px;
+}
+
+.panel input[type|=submit] {
+    width: 100%
+}
+
+.row > select {
+  width: auto;
+  margin: 9px 7px 0 0;
+}
+
+.row > label {
+}
+
+.row > span {
+    position: absolute;
+    right: 12px;
+    color: #808080;
+}
+
+.row > .toggle {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 100px;
+    height: 28px;
+}
+
+.toggle {
+}
+
+.toggle[toggled="true"] {
+}
+
+.toggleOn {
+  display:none;
+}
+
+.toggleOff {
+  display:none;
+}
+
+.toggle[toggled="true"] > .toggleOn {
+}
+
+.toggle[toggled="true"] > .toggleOff {
+}
+
+.thumb {
+}
+
+.toggle[toggled="true"] > .thumb {
+}
+
+.navroot > div > h2, .panel > h2 {
+    margin: 0 0 0px 10px;
+    font-size: inherit;
+    color: 
+    #4f4f4f;
+    font-weight: 300;
+    text-transform: uppercase;
+    padding: 10px 0;
+}
+
+/************************************************************************************************/
+
+#preloader {
+    display: none;
+}
+
+#qrcode, #qrlabel{
+  width:82%;
+}
+#qrcode{
+  padding-left:30px;
+}
+.addressellipse{
+}
+.inputs .btc{
+  color:#99120d;
+}
+.outputs .btc{
+  color:#65a327;
+}
+.gianthash{
+}
+.smaller_date{
+  font-size:70%;
+  color:#4f4f4f;
+}
+
+/* seven-theme.css (c) 2007-2012 by iUI Project Members, see iUI LICENSE.txt for license */
+body,
+.navroot {
+    color: #000000;
+}
+
+li > a[selected], li > a:active {
+    background-image: url(listArrowSel.png), url(selection.png) !important;
+}
+
+li > a[selected="progress"] {
+    background-image: url(loading.gif), url(selection.png) !important;
+}
+
+/************************************************************************************************/
+
+body > .toolbar,
+.navroot > .toolbar{
+    background: #f8f8f8;
+}
+
+.button {
+}
+
+.blueButton {
+}
+
+#backButton {
+/*    background: 0 5px url(themes/seven/images/backbutton.png) no-repeat; */
+    padding-left: 20px;
+    background-size: 12px;
+}
+
+#backButton:active {
+}
+
+.whiteButton {
+}
+
+.redButton {
+}
+
+.grayButton {
+}
+
+/************************************************************************************************/
+
+body > ul > li.group {
+}
+
+body > ul > li > a,
+.navroot > ul > li > a,
+.navroot > div > ul > li > a{
+    background: url(themes/seven/images/rightarrow.png) no-repeat 98% center;
+    background-size: 8px;
+}
+
+/************************************************************************************************/
+    
+.dialog > fieldset {
+}
+
+/************************************************************************************************/
+
+body > .panel 
+.navroot > .panel{
+    background: #e5e5e5;
+}
+
+.toggle {
+  background: url(themes/seven/images/toggleoff.png) no-repeat 98% center;
+  background-size: 41px;
+}
+
+.toggle[toggled="true"] {
+  background: url(themes/seven/images/toggleon.png) no-repeat 98% center;
+  background-size: 41px;
+}
+
+.thumb {
+}
+
+/************************************************************************************************/
+#preloader {
+    display: none;
+    background-image: url(loading.gif), url(backButtonSel.png), url(selection.png),
+        url(blueButton.png), url(listArrowSel.png), url(listArrowSel.png), url(listGroup.png);
+}
+
+.toolbar > h1.titleImg {
+  background: url(title-img.png) no-repeat top center;
+  color: rgba(0,0,0,0);
+}
+
+.backButtonImg {
+  width: 50px;
+  background: url(back-img.png) no-repeat center left,
+              url(backButtonBack.png) repeat-x top left !important;
+  color: rgba(0,0,0,0);
+}

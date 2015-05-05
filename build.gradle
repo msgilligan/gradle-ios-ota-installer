@@ -1,0 +1,95 @@
+//
+// Gradle iOS Over-the-Air Installer Publishing Script and Templates
+// (c) 2010-2015, Michael Sean Gilligan. Licensed under the MIT license.
+//
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath "com.monochromeroad.gradle-plugins:gradle-aws-s3-sync:0.5"
+    }
+}
+
+import com.monochromeroad.gradle.plugin.aws.s3.S3Sync
+apply plugin: 'base'
+
+defaultTasks 'build'
+
+// Load AWS credentials from separate properties file at path "awsPropertiesPath"
+def awsProps = new Properties()
+file(awsPropertiesPath).withInputStream { stream -> awsProps.load(stream) }
+
+ext {
+    aws = [accessKey: awsProps.otaAwsAccessKey, secretKey: awsProps.otaAwsSecretKey]
+}
+
+version = '0.2'
+group = 'com.msgilligan'
+
+
+def releaseID = "${baseName}-${appReleaseConfig}-${appVersion}"
+def ipaFilename = "${releaseID}.ipa"
+
+def styleSrcDir = "src/style"
+
+def nameMap = [ "adhocInstallHTML.gtpl": "index.html",
+                "adhocInstallPLIST.gtpl": "${releaseID}.plist"];
+
+mkdir('.cache')     // For S3 Sync
+
+// Copy the App Archive
+task copyIPA(type: Copy) {
+    from ipaSrcDir
+    into buildDir
+    include ipaFilename
+}
+
+// Render the .html and .xml templates
+task renderTemplates(type: Copy) {
+    from 'src/templates'
+    into "$buildDir"
+    include '*.gtpl'
+    rename { inputFilename -> nameMap[inputFilename] }
+    expand( BASENAME: baseName,
+            BASEURL: baseURL,
+            BASESSLURL: baseSSLURL,
+            BUNDLEID: appBundleID,
+            CONFIG: appReleaseConfig,
+            VERSION: appVersion,
+            RELEASEID: releaseID)
+}
+
+// Copy icon images
+task copyImages(type: Copy) {
+    from 'src/images'
+    into "${buildDir}"
+    include '*.png'
+}
+
+// Copy styling directory
+task copyStyle(type: Copy) {
+    from styleSrcDir
+    into "${buildDir}/style"
+}
+
+task buildOTADir(dependsOn: ['copyIPA', 'renderTemplates', 'copyImages', 'copyStyle'])
+
+build.dependsOn buildOTADir
+
+def awsDestBucket = awsDest
+
+task deploy(type: S3Sync, dependsOn: 'buildOTADir') {
+    description = "Deploys OTA install directory to an s3 bucket."
+
+    accessKey project.aws.accessKey
+    secretKey project.aws.secretKey
+
+    configFile "synchronizer.properties"
+    acl = com.monochromeroad.gradle.plugin.aws.s3.ACL.PublicRead
+
+    from "build"
+    into awsDestBucket
+}
+
