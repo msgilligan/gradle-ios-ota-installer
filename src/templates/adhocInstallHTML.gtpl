@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!doctype html>
 <!--
     Copyright (c) 2010-2015, M. Sean Gilligan
     Licensed under the MIT License (see MIT-License-Build-Scripts.txt)
