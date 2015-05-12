@@ -1,6 +1,8 @@
 = Gradle iOS Over-the-Air Installer
 
-Currently this is just a sample `build.gradle` file, but if there is interest it may be be converted to a Gradle plugin.
+Gradle script for building static assets for an iOS "Over-the-air" installer and publishing them to Amazon S3.
+
+Currently this is just a sample `build.gradle` file, but if there is interest and/or help it could be converted to a Gradle plugin.
 
 == Getting started.
 
